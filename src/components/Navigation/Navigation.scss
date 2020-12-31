@@ -1,0 +1,32 @@
+.sc {
+	// .sc__nav
+	&__nav {
+		padding: 10px;
+		border-radius: 50px;
+		background: orange;
+	}
+}
+.nav {
+	// .nav__list
+	&__list {
+		display: flex;
+	}
+	// .nav__item
+	&__item {
+		padding: 20px;
+		margin: 0px 20px 0px 0px;
+		border-radius: 50px;
+		cursor: pointer;
+		color: #fff;
+		text-transform: uppercase;
+		font-size: 14px;
+		transition: all 0.5s ease 0s;
+		&:last-child {
+			margin: 0px 0px 0px 0px;
+		}
+		// .nav__item_active
+		&_active {
+			background: rgb(0, 70, 0);
+		}
+	}
+}

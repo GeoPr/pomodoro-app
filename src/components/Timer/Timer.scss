@@ -1,0 +1,40 @@
+.sc {
+  // .sc__timer
+  &__timer {
+  }
+}
+.timer {
+  // .timer__body
+  &__body {
+    display: grid;
+    place-items: center;
+    position: relative;
+  }
+  // .timer__item
+  &__item {
+    transform: rotate(90deg) scaleX(-1);
+    circle {
+      transition: all 0.5s ease 0s;
+    }
+  }
+  // .timer__info
+  &__info {
+    position: absolute;
+    display: grid;
+    row-gap: 20px;
+  }
+  // .timer__time
+  &__time {
+    font-size: 1.5rem;
+		color: #fff;
+		text-align: center;
+  }
+  // .timer__button
+  &__button {
+		padding: 10px;
+		border-radius: 10px;
+		background: rebeccapurple;
+		color: #fff;
+		text-transform: uppercase;
+  }
+}

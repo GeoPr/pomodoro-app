@@ -1,0 +1,26 @@
+.page {
+  // .page__sc
+  &__sc {
+    background: #232332;
+  }
+}
+.sc {
+  // .sc__container
+  &__container {
+  }
+  // .sc__body
+  &__body {
+		min-height: 100vh;
+		display: grid;
+		place-content: center;
+		justify-content: center;
+		row-gap: 30px;
+	}
+	// .sc__title
+	&__title {
+		text-transform: uppercase;
+		text-align: center;
+		font-size: 2rem;
+		color: #fff
+	}
+}
