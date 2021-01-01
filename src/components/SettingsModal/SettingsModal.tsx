@@ -5,11 +5,22 @@ import { setTime } from '../../redux/reducers/timerReducer/actions';
 import { TApp } from '../../redux/store';
 import './SettingsModal.scss';
 
+export interface IValue {
+  title: string;
+  time: number;
+}
+
 export const SettingsModal: FC = () => {
   const timers = useSelector((state: TApp) => state.timers);
   const dispatch = useDispatch();
-  const valuesEntries = timers.map(timer => [timer.title, timer.time]);
-  const [values, setValues] = useState(Object.fromEntries(valuesEntries));
+  // const valuesEntries = timers.map(timer => [
+  //   ['title', timer.title],
+  //   ['time', timer.time],
+  // ]);
+  // const [values, setValues] = useState(Object.fromEntries(valuesEntries));
+
+  const valuesObj = timers.map(({ title, time }) => ({ title, time }));
+  const [values, setValues] = useState<Array<IValue>>(valuesObj);
 
   const closeSettings = (e: any) => {
     const { type } = e.target.dataset;
@@ -18,14 +29,22 @@ export const SettingsModal: FC = () => {
   };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const num = +e.target.value;
-    const name = e.target.name;
+    const inputTime = +e.target.value;
+    const inputTitle = e.target.name;
 
-    if (num >= 1) {
-      setValues((prev: any) => ({
-        ...prev,
-        [name]: num,
-      }));
+    if (inputTime >= 1) {
+      setValues(prev => {
+        return prev.map(value => {
+          const { title } = value;
+
+          return title === inputTitle ? { ...value, time: inputTime } : value;
+        });
+      });
+
+      // setValues((prev: any) => ({
+      //   ...prev,
+      //   [inputTitle]: inputTime,
+      // }));
     }
   };
 
@@ -62,7 +81,7 @@ export const SettingsModal: FC = () => {
                 <div className="actions-settings-modal__name">{title}</div>
                 <input
                   type="number"
-                  value={values[title]}
+                  value={values[id].time}
                   name={title}
                   onChange={changeHandler}
                   className="actions-settings-modal__input"

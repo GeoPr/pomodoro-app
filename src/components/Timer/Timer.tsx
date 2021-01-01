@@ -13,8 +13,8 @@ export const Timer: FC = () => {
   const [strokeDashArray, setStrokeDashArray] = useState(``);
   const [strokeDashOffset, setStrokeDashOffset] = useState(0);
   const [passed, setPassed] = useState(0);
-  const [time, setTime] = useState(currentTimer.time);
-  const [int, setInt] = useState<any>(null);
+  const [minutes, setMinutes] = useState(currentTimer.time);
+  const [timeInterval, setTimeInverval] = useState<any>(null);
 
   const r = 90;
   const circumference = 2 * Math.PI * r;
@@ -24,15 +24,15 @@ export const Timer: FC = () => {
   let limitTime = currentTimer.time * 60;
 
   useEffect(() => {
-    setTime(prev => currentTimer.time);
+    setMinutes(prev => currentTimer.time);
     setPassed(0);
     setStrokeDashOffset(0);
     setStrokeDashArray(``);
     setShouldStart(false);
-    clearInterval(int);
+    clearInterval(timeInterval);
     dispatch(setTimeLeft());
 
-    return () => clearInterval(int);
+    return () => clearInterval(timeInterval);
   }, [currentTimer, currentTimer.time]);
 
   const calculateTimeFraction = () => {
@@ -54,11 +54,12 @@ export const Timer: FC = () => {
     setStrokeDashArray(`${circumference} ${circumference}`);
     setStrokeDashOffset(circumference);
     setShouldStart(false);
+    setMinutes(0);
   }
 
   const updateTime = () => {
     if (timePassed >= limitTime || shouldStart) {
-      clearInterval(int);
+      clearInterval(timeInterval);
       return;
     }
 
@@ -75,10 +76,10 @@ export const Timer: FC = () => {
 
       setStrokeDashOffset(0);
       setCircleDasharray();
-      setTime(prev => Math.ceil(timeLeft / 60));
+      setMinutes(prev => Math.ceil(timeLeft / 60));
     }, 1000);
 
-    setInt(interval);
+    setTimeInverval(interval);
   };
 
   const clickHandler = () => {
@@ -91,6 +92,14 @@ export const Timer: FC = () => {
       <div className="timer__body">
         <svg className="timer__item" width="200" height="200">
           <circle
+            stroke="#eee"
+            cx="50%"
+            cy="50%"
+            strokeWidth="15"
+            r={r}
+            fill="transparent"
+          />
+          <circle
             stroke={currentTimer.color}
             cx="50%"
             cy="50%"
@@ -102,7 +111,7 @@ export const Timer: FC = () => {
           />
         </svg>
         <div className="timer__info">
-          <div className="timer__time">{time}</div>
+          <div className="timer__time">{minutes}</div>
           <button className="timer__button" onClick={clickHandler}>
             {!shouldStart ? 'start' : 'pause'}
           </button>
