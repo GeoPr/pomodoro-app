@@ -50,17 +50,6 @@ export const timerReducer = (
 
     case SET_TIME: {
       const { values } = action.payload;
-      // const keys = Object.keys(values);
-
-      // return state.map(timer => {
-      //   keys.forEach((key: string) => {
-      //     if (timer.title === key) {
-      //       timer.time = values[key];
-      //     }
-      //   });
-
-      //   return timer;
-      // });
 
       return state.map(timer => {
         const { title, time } = values[timer.id];

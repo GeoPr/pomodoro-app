@@ -13,12 +13,6 @@ export interface IValue {
 export const SettingsModal: FC = () => {
   const timers = useSelector((state: TApp) => state.timers);
   const dispatch = useDispatch();
-  // const valuesEntries = timers.map(timer => [
-  //   ['title', timer.title],
-  //   ['time', timer.time],
-  // ]);
-  // const [values, setValues] = useState(Object.fromEntries(valuesEntries));
-
   const valuesObj = timers.map(({ title, time }) => ({ title, time }));
   const [values, setValues] = useState<Array<IValue>>(valuesObj);
 
@@ -40,11 +34,6 @@ export const SettingsModal: FC = () => {
           return title === inputTitle ? { ...value, time: inputTime } : value;
         });
       });
-
-      // setValues((prev: any) => ({
-      //   ...prev,
-      //   [inputTitle]: inputTime,
-      // }));
     }
   };
 
